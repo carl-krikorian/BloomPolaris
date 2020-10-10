@@ -18,7 +18,7 @@ class Opportunities(models.Model):
     category = models.CharField(max_length=200)
 
     def __str__(self):
-        return self.name + " " + self.id
+        return self.name + " " + str(self.id)
 '''
     def __eq__(self, other):
         if self.id == other.id:
