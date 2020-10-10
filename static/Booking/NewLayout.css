@@ -1,0 +1,10 @@
+.logo {
+  display: inline-block;
+  vertical-align: middle;
+  width: 7%;
+}
+
+.logo img {
+  height: auto;
+  width: 100%;
+}

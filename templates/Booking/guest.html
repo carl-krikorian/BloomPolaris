@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Polaris</title>
+<meta charset="utf-8">
+    {% load static %}
+{#<link rel="stylesheet" href="{% static 'Booking/layout.css' %}" type="text/css">#}
+{#<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">#}
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static 'Booking/freelancer/css/styles.css' %}" rel="stylesheet">
+        <!-- Fonts CSS-->
+        <link rel="stylesheet" href="{% static 'Booking/freelancer/css/heading.css'%}">
+        <link rel="stylesheet" href="{% static 'Booking/freelancer/css/body.css"'%}">
+    <script src="{% static 'Booking/sorttable.js' %}"></script>
+</head>
+
+        <body id="page-top">
+        <nav class="navbar navbar-expand-lg bg-secondary fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger" href="#page-top">
+                    <img class="d-inline-block align-middle mr-2"  src="{% static 'Booking/assets/brand/logoWHITE.svg'%}" height="60" width="60"/>Welcome, {{ user.get_full_name }}
+                </a>
+                <button class="navbar-toggler navbar-toggler-right font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu <i class="fas fa-bars"></i></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item mx-0 mx-lg-1"><a href="{% url 'Booking:guest' guest.id %}" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">Home</a>
+                        </li>
+<li class="nav-item mx-0 mx-lg-1"><a href="{% url 'Booking:projectlist' guest.id %}" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#about">Events</a>
+</li>
+                        <li class="nav-item mx-0 mx-lg-1"><a href="{% url 'Booking:friends' guest.id %}" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Connect</a>
+                        </li>
+                        <li class="nav-item mx-0 mx-lg-1"><a href="{% url 'Booking:profile' guest.id %}" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Profile</a>
+                        </li>
+                        <li class="nav-item mx-0 mx-lg-1"><a href="{% url 'Booking:logout' %}" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+<!-- content -->
+          <link href="{% static 'Booking/Homeicons/css/landing-page.min.css'%}" rel="stylesheet">
+
+<header size="16" class="masthead bg-info text-white text-center" >
+
+    <div class="container d-flex align-items-center flex-column">
+        <!-- Masthead Avatar Image--><img class="masthead-avatar"  src="{% static 'Booking/assets/brand/logoWHITE.svg'%}" alt="">
+        <!-- Masthead Heading-->
+        <h1 class="masthead-heading mb-0">Start Polaris</h1>
+        <!-- Icon Divider-->
+        <div class="divider-custom divider-light">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+        <!-- Masthead Subheading-->
+        <p class="pre-wrap masthead-subheading font-weight-light mb-0">Plan - Collaborate - Innovate</p>
+    </div>
+    </header>
+  <link href="{%  static 'Booking/Homeicons/vendor/simple-line-icons/css/simple-line-icons.css'%}" rel="stylesheet" type="text/css">
+
+
+        <!-- Icons Grid -->
+  <section class="features-icons bg-light text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="features-icons-item mx-auto col-md">
+            <div class="features-icons-icon d-flex">
+              <i class="icon-screen-desktop m-auto text-primary"></i>
+            </div>
+            <h3>Plan</h3>
+            <p class="lead mb-0">Thanks to our Algorithms and Mentors we can help you design an appropriate plan for you career</p>
+          </div>
+        </div>
+        <div class="col">
+          <div class="features-icons-item mx-auto col-md" >
+            <div class="features-icons-icon d-flex">
+              <i class="icon-layers m-auto text-primary"></i>
+            </div>
+            <h3>Collaborate</h3>
+            <p class="lead mb-0">Be matched and collaborate with other users of the platform</p>
+          </div>
+        </div>
+        <div class="col">
+          <div class="features-icons-item mx-auto col-sm">
+            <div class="features-icons-icon d-flex">
+              <i class="icon-check m-auto text-primary"></i>
+            </div>
+            <h3>Easy to Use</h3>
+            <p class="lead mb-0">Features and mentors will be readily available for you</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<div class="wrapper row2">
+  <div id="container" class="clear" align="center">
+    <!-- Slider -->
+    <!-- / content body -->
+  </div>
+</div>
+</body>
+<!-- Footer -->
+        <footer class="footer text-center">
+            <div class="container">
+                <div class="row">
+                    <!-- Footer Location-->
+                    <div class="col-lg-4 mb-5 mb-lg-0">
+                        <h4 class="mb-4">Contact Us</h4>
+                        <p class="pre-wrap lead mb-0">Beirut Lebanon</p>
+                    </div>
+                    <!-- Footer Social Icons-->
+                    <div class="col-lg-4 mb-5 mb-lg-0">
+                        <h4 class="mb-4">On other social</h4><a class="btn btn-outline-light btn-social mx-1" href="https://www.facebook.com/StartBootstrap"><i class="fab fa-fw fa-facebook-f"></i></a><a class="btn btn-outline-light btn-social mx-1" href="https://www.twitter.com/sbootstrap"><i class="fab fa-fw fa-twitter"></i></a><a class="btn btn-outline-light btn-social mx-1" href="https://www.linkedin.com/in/startbootstrap"><i class="fab fa-fw fa-linkedin-in"></i></a><a class="btn btn-outline-light btn-social mx-1" href="https://www.dribble.com/startbootstrap"><i class="fab fa-fw fa-dribbble"></i></a>
+                    </div>
+                    <!-- Footer About Text-->
+                    <div class="col-lg-4">
+                        <h4 class="mb-4">ABOUT POLARIS</h4>
+                        <p class="pre-wrap lead mb-0">Created by the Polaris team</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Copyright Section-->
+        <section class="copyright py-4 text-center text-white">
+            <div class="container"><small class="pre-wrap">Copyright ©Polaris 2020</small></div>
+        </section>
+</div>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Polaris</title>
+<meta charset="utf-8">
+    {% load static %}
+<link rel="stylesheet" href="{% static 'Booking/layout.css' %}" type="text/css">
+    <script src="{% static 'Booking/sorttable.js' %}"></script>
+</head>
+<body>
+<div class="wrapper row1">
+  <header id="header" class="clear">
+    <div id="hgroup">
+      <h1>Polaris </h1>
+	  <h2>Welcome, {{ user.get_full_name }}</h2>
+    </div>
+    <nav>
+      <ul>
+          <li><a href="{% url 'Booking:guest' guest.id %}">Home</a></li>
+          <li><a href="{% url 'Booking:projectlist' guest.id %}">Events</a></li>
+          <li><a href="{% url 'Booking:friends' guest.id %}">Connect</a></li>
+          <li><a href="{% url 'Booking:profile' guest.id %}">Profile</a></li>
+
+          <li class="last"><a href="{% url 'Booking:logout' %}">Log Out</a></li>
+      </ul>
+    </nav>
+  </header>
+</div>
+<!-- content -->
+<div class="wrapper row2">
+  <div id="container" class="clear">
+    <!-- Slider -->
+    <section id="slider" class="clear">
+        <h1>Connect with Partners</h1>
+        <br />
+        <br />
+        <table id="visits" class="sortable">
+            <thead>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email address</th>
+                <th>Number of Visits</th>
+                <th>Remove Friend</th>
+            </thead>
+            {% for friend, visits in friends %}
+                <tr>
+                    <td>{{ friend.user.first_name }}</td>
+                    <td>{{ friend.user.last_name }}</td>
+                    <td>{{ friend.user.email }}</td>
+                    <td>{{ visits }}</td>
+                    <td><a href="{% url 'Booking:disconnect' guest.id friend.id %}"><button id="delete">Remove</button></a></td>
+                </tr>
+            {% endfor %}
+        </table>
+        <br />
+        <br />
+        <br />
+        <h2>Search for friends</h2>
+        <br />
+        {% if error_message %}<p id="error">{{ error_message }}</p>{% endif %}
+        <br />
+        <form action="{% url 'Booking:search' guest.id %}" method="post" class="menu_item">
+              {% csrf_token %}
+              <br />
+              <input id = "name" name = "name" type="text" required placeholder="Search Users">
+              <br />
+              <input type="submit" id = "sf_submit" value="Search">
+              <br />
+        </form>
+        <br />
+        <br />
+        {% if connections %}
+            <h3>Found Users</h3>
+            <br />
+            <br />
+            <table id="visits" class="sortable">
+            <thead>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email address</th>
+                <th>Make Friend</th>
+            </thead>
+            {% for connection in connections %}
+                <tr>
+                    <td>{{ connection.user.first_name }}</td>
+                    <td>{{ connection.user.last_name }}</td>
+                    <td>{{ connection.user.email }}</td>
+                    <td><a href="{% url 'Booking:connect' guest.id connection.id %}"><button id="delete">Connect</button></a></td>
+                </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+    </section>
+    <!-- / content body -->
+  </div>
+</div>
+<!-- Footer -->
+<div class="wrapper row3">
+  <footer id="footer" class="clear">
+    <p class="fl_left">2020</p>
+    <p class="fl_right">Team Polaris</p>
+  </footer>
+</div>
+</body>
+</html>

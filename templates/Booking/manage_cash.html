@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Polaris</title>
+<meta charset="utf-8">
+    {% load static %}
+<link rel="stylesheet" href="{% static 'Booking/layout.css' %}" type="text/css">
+    <script src="{% static 'Booking/sorttable.js' %}"></script>
+</head>
+<body>
+<div class="wrapper row1">
+  <header id="header" class="clear">
+    <div id="hgroup">
+      <h1>Polaris</h1>
+	  <h2>Welcome, {{ user.get_full_name }}</h2>
+    </div>
+    <nav>
+      <ul>
+          <li><a href="{% url 'Booking:manager' manager.id %}">Home</a></li>
+          <li><a href="{% url 'Booking:profiling' manager.id %}">Profile</a></li>
+          <li><a href="{% url 'Booking:lookup' manager.id %}">Look Up</a></li>
+          <li><a href="{% url 'Booking:addGadget' manager.id %}">Add Gadgets</a></li>
+          <li><a href="{% url 'Booking:viewTransactions' manager.id %}">manage cash</a></li>
+          <li class="last"><a href="{% url 'Booking:logout' %}">Log Out</a></li>
+      </ul>
+    </nav>
+  </header>
+</div>
+<!-- content -->
+<div class="wrapper row2">
+  <div id="container" class="clear">
+    <!-- Slider -->
+    <section id="slider" class="clear">
+        <h1>Transactions</h1>
+        <br />
+        <br />
+        <table id="visits" class="sortable">
+            <thead>
+                <th>type</th>
+                <th>amount</th>
+                <th>date</th>
+                <th>items</th>                
+
+            </thead>
+            {% for t in transactions %}
+                <tr>
+                    <td>{{ t.transaction_type }}</td>
+                    <td>{{ t.amount }}</td>
+                    <td>{{ t.date }}</td>
+                    <td>{{ t.item }}</td>
+
+                </tr>
+            {% endfor %}
+            
+        </table>
+    </section>
+    <section class="clear">
+        <h1>Add a Transaction</h1>
+        <form action="{% url 'Booking:addTransaction' manager.id %}" method="POST">
+            {% csrf_token %}
+            <input type="number" name="amount" value="amount">
+            <label for="amount">amount</label><br>
+            <input type="radio" id="buy" name="type" value="buy">
+            <label for="male">buy</label><br>
+            <input type="radio" id="sell" name="type" value="sell">
+            <label for="female">sell</label><br>
+            item
+            <select name="item">
+            {% for g in gadgets %}
+                     <option value="{{g.name}}">{{g.name}}</option> 
+            {% endfor %}
+            </select>
+            <br>
+            <input type="submit" value="Submit">
+
+        </form>
+    </section>
+    <!-- / content body -->
+  </div>
+</div>
+<!-- Footer -->
+<div class="wrapper row3">
+  <footer id="footer" class="clear">
+    <p class="fl_left">2020</p>
+    <p class="fl_right">Team Polaris</p>
+  </footer>
+</div>
+</body>
+</html>

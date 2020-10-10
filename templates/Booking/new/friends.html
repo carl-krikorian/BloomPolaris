@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Polaris</title>
+<meta charset="utf-8">
+    {% load static %}
+{#<link rel="stylesheet" href="{% static 'Booking/layout.css' %}" type="text/css">#}
+{#<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">#}
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static 'Booking/freelancer/css/styles.css' %}" rel="stylesheet">
+        <!-- Fonts CSS-->
+        <link rel="stylesheet" href="{% static 'Booking/freelancer/css/heading.css'%}">
+        <link rel="stylesheet" href="{% static 'Booking/freelancer/css/body.css"'%}">
+    <script src="{% static 'Booking/sorttable.js' %}"></script>
+</head>
+
+        <body id="page-top">
+        <nav class="navbar navbar-expand-lg bg-secondary fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger" href="#page-top">
+                    <img class="d-inline-block align-middle mr-2" src="{% static 'Booking/assets/brand/logoWHITE.svg'%}" height="60" width="60"/>Welcome, {{ user.get_full_name }}
+                </a>
+                <button class="navbar-toggler navbar-toggler-right font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu <i class="fas fa-bars"></i></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item mx-0 mx-lg-1"><a href="{% url 'Booking:guest' guest.id %}" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">Home</a>
+                        </li>
+<li class="nav-item mx-0 mx-lg-1"><a href="{% url 'Booking:projectlist' guest.id %}" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#about">Events</a>
+</li>
+                        <li class="nav-item mx-0 mx-lg-1"><a href="{% url 'Booking:friends' guest.id %}" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Connect</a>
+                        </li>
+                        <li class="nav-item mx-0 mx-lg-1"><a href="{% url 'Booking:profile' guest.id %}" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Profile</a>
+                        </li>
+                        <li class="nav-item mx-0 mx-lg-1"><a href="{% url 'Booking:logout' %}" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+</div>
+<!-- content -->
+        <header class="masthead bg-info text-white text-center">
+    <div class="container d-flex align-items-center flex-column">
+  <div id="container" class="clear" align="center">
+    <!-- Slider -->
+    <section id="slider" class="clear">
+        <h1>Connect with People</h1>
+        <table id="visits" class="sortable table table-light table-bordered table-striped table-hover">
+            <thead class="thead-dark">
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Role</th>
+                <th>Email address</th>
+                <th>Contact</th>
+                <th>Remove Friend</th>
+            </thead>
+            {% for friend, visits in friends %}
+                <tr>
+                    <td>{{ friend.user.first_name }}</td>
+                    <td>{{ friend.user.last_name }}</td>
+                    <td>{{ friend.user.guest.accountType }}</td>
+                    <td>{{ friend.user.email }}</td>
+                    <td><a ><button class="btn btn-info">Message</button></a></td>
+                    <td><a href="{% url 'Booking:disconnect' guest.id friend.id %}"><button class="btn btn-danger">Remove</button></a></td>
+                </tr>
+            {% endfor %}
+        </table>
+        <br />
+        <h2>Search for users</h2>
+        {% if error_message %}<p id="error">{{ error_message }}</p>{% endif %}
+        <form action="{% url 'Booking:search' guest.id %}" method="post" class="form-check">
+              {% csrf_token %}
+              <br />
+              <input id = "name" name = "name" type="text" required placeholder="Search Users">
+              <input type="submit" id = "sf_submit" value="Search" class="btn btn-primary">
+              <br />
+        </form>
+        {% if connections %}
+            <h3>Found Users</h3>
+            <table id="visits" class="sortable table table-light table-bordered table-striped table-hover">
+            <thead class="thead-dark">
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Role</th>
+                <th>Email address</th>
+                <th>Make Friend</th>
+            </thead>
+            {% for connection in connections %}
+                <tr>
+                    <td>{{ connection.user.first_name }}</td>
+                    <td>{{ connection.user.last_name }}</td>
+                    <td>{{ connection.user.guest.accountType }}</td>
+                    <td>{{ connection.user.email }}</td>
+                    <td><a href="{% url 'Booking:connect' guest.id connection.id %}"><button class="btn btn-primary">Connect</button></a></td>
+                </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+    </section>
+
+  </div>
+    </div>
+  </header>
+    <!-- / content body -->
+  </div>
+</div>
+
+
+
+
+
+        <main role="main" class="container">
+  <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
+    <div class="lh-100">
+      <h2 class="mb-0 text-black-50 lh-100" >Forums</h2>
+    </div>
+  </div>
+
+  <div class="my-3 p-3 bg-white rounded shadow-sm">
+    <h6 class="border-bottom border-gray pb-2 mb-0">Recent updates</h6>
+    <div class="media text-muted pt-3">
+      <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
+      <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+        <strong class="d-block text-gray-dark">@username</strong>
+        Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+      </p>
+    </div>
+    <div class="media text-muted pt-3">
+      <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#e83e8c"/><text x="50%" y="50%" fill="#e83e8c" dy=".3em">32x32</text></svg>
+      <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+        <strong class="d-block text-gray-dark">@username</strong>
+        Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+      </p>
+    </div>
+    <div class="media text-muted pt-3">
+      <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#6f42c1"/><text x="50%" y="50%" fill="#6f42c1" dy=".3em">32x32</text></svg>
+      <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+        <strong class="d-block text-gray-dark">@username</strong>
+        Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+      </p>
+    </div>
+    <small class="d-block text-right mt-3">
+      <a href="#">All updates</a>
+    </small>
+  </div>
+
+  <div class="my-3 p-3 bg-white rounded shadow-sm">
+    <h6 class="border-bottom border-gray pb-2 mb-0">Suggestions</h6>
+    <div class="media text-muted pt-3">
+      <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
+      <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+        <div class="d-flex justify-content-between align-items-center w-100">
+          <strong class="text-gray-dark">Full Name</strong>
+          <a href="#">Follow</a>
+        </div>
+        <span class="d-block">@username</span>
+      </div>
+    </div>
+    <div class="media text-muted pt-3">
+      <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
+      <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+        <div class="d-flex justify-content-between align-items-center w-100">
+          <strong class="text-gray-dark">Full Name</strong>
+          <a href="#">Follow</a>
+        </div>
+        <span class="d-block">@username</span>
+      </div>
+    </div>
+    <div class="media text-muted pt-3">
+      <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
+      <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+        <div class="d-flex justify-content-between align-items-center w-100">
+          <strong class="text-gray-dark">Full Name</strong>
+          <a href="#">Follow</a>
+        </div>
+        <span class="d-block">@username</span>
+      </div>
+    </div>
+    <small class="d-block text-right mt-3">
+      <a href="#">All suggestions</a>
+    </small>
+  </div>
+</main>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="offcanvas.js"></script></body>
+<!-- Footer -->
+        <!-- Copyright Section-->
+        <section class="copyright py-4 text-center text-white">
+            <div class="container"><small class="pre-wrap">Copyright ©Polaris  2020</small></div>
+        </section>
+</div>
+
+
+</body>
+
+</html>

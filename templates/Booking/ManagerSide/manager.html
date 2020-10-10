@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Polaris</title>
+<meta charset="utf-8">
+    {% load static %}
+{#<link rel="stylesheet" href="{% static 'Booking/layout.css' %}" type="text/css">#}
+{#<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">#}
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static 'Booking/freelancer/css/styles.css' %}" rel="stylesheet">
+        <!-- Fonts CSS-->
+        <link rel="stylesheet" href="{% static 'Booking/freelancer/css/heading.css'%}">
+        <link rel="stylesheet" href="{% static 'Booking/freelancer/css/body.css"'%}">
+    <script src="{% static 'Booking/sorttable.js' %}"></script>
+</head>
+
+        <body id="page-top">
+        <nav class="navbar navbar-expand-lg bg-secondary fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger" href="#page-top">
+                    <img class="d-inline-block align-middle mr-2" src="{% static 'Booking/assets/brand/logoWHITE.svg'%}" height="60" width="60"/>Welcome, {{ user.get_full_name }}
+                </a>
+                <button class="navbar-toggler navbar-toggler-right font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu <i class="fas fa-bars"></i></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item mx-0 mx-lg-1"><a href="{% url 'Booking:manager' manager.id %}" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">Home</a>
+                        </li>
+                        <li class="nav-item mx-0 mx-lg-1"><a href="{% url 'Booking:manageOp' manager.id %}" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#about">Events</a>
+                        </li>
+                        <li class="nav-item mx-0 mx-lg-1"><a href="{% url 'Booking:data_center' manager.id %}" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#about">Data</a>
+                        </li>
+                        <li class="nav-item mx-0 mx-lg-1"><a href="{% url 'Booking:logout' %}" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+<!-- content -->
+<header class="masthead bg-info text-white text-center">
+    <div class="container d-flex align-items-center flex-column">
+<div class="wrapper row2">
+  <div id="container" class="clear" align="center">
+    <!-- Slider -->
+    <section id="slider" class="clear">
+        <h1>List of Users</h1>
+                    <!-- Icon Divider-->
+                <div class="divider-custom">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                    <div class="divider-custom-line"></div>
+                </div>
+        <br />
+        <br />
+        <table id="visits" class="table table-light table-bordered table-striped table-hover sortable">
+            <thead class="thead-dark ">
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+
+
+            </thead>
+            {% for u in users %}
+                <tr>
+                    <td>{{ u.user.first_name }}</td>
+                    <td>{{ u.user.last_name }}</td>
+                    <td>{{ u.user.email }}</td>
+
+{#                    <td><a href="{% url 'Booking:restaurantmenu' guest.id restaurant.id %}"><button id="edit">Menu</button></a></td>#}
+{#                    <td><a href="{% url 'Booking:reservationtime' guest.id restaurant.id %}"><button id="delete">Reserve</button></a></td>#}
+{##}
+
+
+                </tr>
+            {% endfor %}
+        </table>
+    </section>
+          </div>
+
+    <!-- / content body -->
+  </div>
+</div>
+</header>
+</body>
+<!-- Footer -->
+        <!-- Copyright Section-->
+        <section class="copyright py-4 text-center text-white">
+            <div class="container"><small class="pre-wrap">Copyright ©Polaris  2020</small></div>
+        </section>
+</div>
+</html>

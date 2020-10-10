@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Polaris</title>
+<meta charset="utf-8">
+    {% load static %}
+<link rel="stylesheet" href="{% static 'Booking/layout.css' %}" type="text/css">
+    <script src="{% static 'Booking/sorttable.js' %}"></script>
+</head>
+<body>
+<div class="wrapper row1">
+  <header id="header" class="clear">
+    <div id="hgroup">
+      <h1>Polaris</h1>
+	  <h2>Welcome, {{ user.get_full_name }}</h2>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="{% url 'Booking:manager' manager.id %}">Home</a></li>
+           <li><a href="{% url 'Booking:profiling' manager.id %}">Profile</a></li>
+          <li><a href="{% url 'Booking:lookup' manager.id %}">Look Up</a></li>
+          <li><a href="{% url 'Booking:addGadget' manager.id %}">Add Gadgets</a></li>
+          <li><a href="{% url 'Booking:viewTransactions' manager.id %}">manage cash</a></li>
+        <li class="last"><a href="{% url 'Booking:logout' %}">Log Out</a></li>
+      </ul>
+    </nav>
+  </header>
+</div>
+<!-- content -->
+<div class="wrapper row2">
+  <div id="container" class="clear">
+    <!-- Slider -->
+    <section id="slider" class="clear">
+        <h1>{{ restaurant.name }}</h1>
+        <h2>{{ restaurant.description }}</h2>
+        <br />
+        <h2>{{ restaurant.address }}</h2>
+        <br />
+        <br />
+        <a href="{% url 'Booking:menu' restaurant.id manager.id %}"><button id="button">Check Restaurant's Menu</button></a>
+        <br />
+        {% if restaurant.is_ready %}
+                <br />
+                <h3>Sitting Schedule</h3>
+                <br />
+                <table id="tables" class="sortable">
+                    {% for i in rows %}
+                        <tr>
+                        {% for j in columns %}
+                            <td>
+                            {% for t in tables %}
+                                {% if t.row == i and t.column == j  %}
+                                    <p>{{ t.number }}</p>
+                                {% endif %}
+                            {% endfor %}
+                            </td>
+                        {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <a href="{% url 'Booking:tables' restaurant.id manager.id %}"><button id="button">Set Sitting Schedule</button></a>
+        {% endif %}
+        <br>
+            <br>
+
+            <br>
+
+          <h3>List of Events</h3>
+                <br>
+
+
+<table id="visits" class="sortable">
+            <thead>
+                <th>Name</th>
+                <th>Date</th>
+
+            </thead>
+            {% for e in form %}
+                <tr>
+                    <td>{{ e.Name }}</td>
+                    <td>{{ e.date }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </section>
+
+    <!-- / content body -->
+  </div>
+</div>
+<!-- Footer -->
+<div class="wrapper row3">
+  <footer id="footer" class="clear">
+    <p class="fl_left">2020</p>
+    <p class="fl_right">Team Polaris</p>
+  </footer>
+</div>
+</body>
+</html>
